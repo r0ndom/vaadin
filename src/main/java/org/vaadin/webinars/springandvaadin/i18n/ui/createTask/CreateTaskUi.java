@@ -33,15 +33,14 @@ import java.util.Map;
  */
 @org.springframework.stereotype.Component
 @Scope("prototype")
-public class TaskManagerUi extends UI {
+public class CreateTaskUi extends UI {
 
-    @Autowired
-    MessageSource messageSource;
     @Autowired
     ProcessEngine engine;
 
 
     private TextField name;
+    private TextField description;
     private Button submit;
 
 
@@ -59,22 +58,25 @@ public class TaskManagerUi extends UI {
         setContent(layout);
 
         name = new TextField();
+        description = new TextField();
         submit = new Button("Click Me");
         submit.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                engine.getTaskService().complete(id, getInputMap());
-                getUI().getPage().setLocation("http://www.google.com");
+                engine.getFormService().submitTaskFormData(id, getInputMap());
+                getUI().getPage().setLocation("/expectedTime");
             }
         });
         layout.addComponent(name);
+        layout.addComponent(description);
         layout.addComponent(submit);
 
     }
 
-    private Map<String, Object> getInputMap() {
-        Map<String, Object> map = new HashMap<>();
+    private Map<String, String> getInputMap() {
+        Map<String, String> map = new HashMap<>();
         map.put("name", name.getValue());
+        map.put("description", description.getValue());
         return map;
     }
 }
