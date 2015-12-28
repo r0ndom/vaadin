@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @org.springframework.stereotype.Component
 @Scope("prototype")
-public class I18nUI extends UI {
+public class TaskManagerUi extends UI {
 
     @Autowired
     MessageSource messageSource;
@@ -51,7 +51,7 @@ public class I18nUI extends UI {
         setLocale(request.getLocale());
         List<Task> tasks = engine.getTaskService().createTaskQuery().list();
         final String id = tasks.get(0).getId();
-        getPage().setTitle(messageSource.getMessage("page.title", null, getLocale()));
+        getPage().setTitle("Task manager");
 
         VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);

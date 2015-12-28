@@ -57,7 +57,7 @@ public class Servlet extends VaadinServlet {
                 sessionInitEvent.getSession().addUIProvider(new UIProvider() {
                     @Override
                     public Class<? extends UI> getUIClass(UIClassSelectionEvent uiClassSelectionEvent) {
-                        return I18nUI.class;
+                        return TaskManagerUi.class;
                     }
 
                     @Override
