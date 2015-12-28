@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.webinars.springandvaadin.i18n.ui;
+package org.vaadin.webinars.springandvaadin.i18n.ui.createTask;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
@@ -64,6 +64,7 @@ public class TaskManagerUi extends UI {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 engine.getTaskService().complete(id, getInputMap());
+                getUI().getPage().setLocation("http://www.google.com");
             }
         });
         layout.addComponent(name);

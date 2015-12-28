@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.vaadin.webinars.springandvaadin.i18n.ui;
+package org.vaadin.webinars.springandvaadin.i18n.ui.createTask;
 
 import com.vaadin.server.*;
 import com.vaadin.ui.UI;
