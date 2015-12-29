@@ -53,13 +53,15 @@ public class CreateTaskUi extends UI {
         getPage().setTitle("Task manager");
 
         VerticalLayout layout = new VerticalLayout();
+        HorizontalLayout nameLayout = new HorizontalLayout();
+        HorizontalLayout descriptionLayout = new HorizontalLayout();
         layout.setMargin(true);
         layout.setSpacing(true);
         setContent(layout);
 
         name = new TextField();
         description = new TextField();
-        submit = new Button("Click Me");
+        submit = new Button("Submit");
         submit.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
@@ -67,8 +69,12 @@ public class CreateTaskUi extends UI {
                 getUI().getPage().setLocation("/task_manager/expectedTime");
             }
         });
-        layout.addComponent(name);
-        layout.addComponent(description);
+        nameLayout.addComponent(new Label("Task name:"));
+        nameLayout.addComponent(name);
+        descriptionLayout.addComponent(new Label("Description:"));
+        descriptionLayout.addComponent(description);
+        layout.addComponent(nameLayout);
+        layout.addComponent(descriptionLayout);
         layout.addComponent(submit);
 
     }
