@@ -45,7 +45,7 @@ public class CreateTaskUi extends UI {
 
 
     @Override
-    protected void init(VaadinRequest request) {
+    protected void init(final VaadinRequest request) {
         ProcessInstance instance = engine.getRuntimeService().startProcessInstanceByKey("process");
         setLocale(request.getLocale());
         List<Task> tasks = engine.getTaskService().createTaskQuery().list();
@@ -64,7 +64,7 @@ public class CreateTaskUi extends UI {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 engine.getFormService().submitTaskFormData(id, getInputMap());
-                getUI().getPage().setLocation("/expectedTime");
+                getUI().getPage().setLocation("/task_manager/expectedTime");
             }
         });
         layout.addComponent(name);
