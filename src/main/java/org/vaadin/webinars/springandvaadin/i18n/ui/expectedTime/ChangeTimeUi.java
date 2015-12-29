@@ -58,7 +58,7 @@ public class ChangeTimeUi extends UI {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 engine.getFormService().submitTaskFormData(id, getInputMap());
-                getUI().getPage().setLocation("/task_manager/changeStatus");
+                getUI().getPage().setLocation("/changeStatus");
             }
         });
         layout.addComponent(name);
