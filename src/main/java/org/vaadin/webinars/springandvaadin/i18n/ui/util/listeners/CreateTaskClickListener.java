@@ -16,21 +16,23 @@ public class CreateTaskClickListener extends AbstractButtonClickListener {
 
     private TextField name;
     private TextArea description;
+    private String location;
     private UI ui;
 
     public CreateTaskClickListener() {
     }
 
-    public CreateTaskClickListener(TextField name, String taskId, TextArea description, UI ui) {
+    public CreateTaskClickListener(TextField name, String taskId, TextArea description, String location, UI ui) {
         super(taskId);
         this.name = name;
         this.description = description;
+        this.location = location;
         this.ui = ui;
     }
 
     @Override
     public void redirect() {
-        ui.getPage().setLocation("/expectedTime");;
+        ui.getPage().setLocation(location);
     }
 
     @Override

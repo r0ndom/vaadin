@@ -16,22 +16,24 @@ public class ChangeTimeClickListener extends AbstractButtonClickListener {
     private TextField name;
     private TextArea description;
     private TextField expectedTime;
+    private String location;
     private UI ui;
 
     public ChangeTimeClickListener() {
     }
 
-    public ChangeTimeClickListener(TextField name, String taskId, TextArea description, TextField expectedTime, UI ui) {
+    public ChangeTimeClickListener(TextField name, String taskId, TextArea description, TextField expectedTime, String location, UI ui) {
         super(taskId);
         this.name = name;
         this.description = description;
         this.expectedTime = expectedTime;
+        this.location = location;
         this.ui = ui;
     }
 
     @Override
     public void redirect() {
-        ui.getPage().setLocation("/changeStatus");;
+        ui.getPage().setLocation(location);
     }
 
     @Override

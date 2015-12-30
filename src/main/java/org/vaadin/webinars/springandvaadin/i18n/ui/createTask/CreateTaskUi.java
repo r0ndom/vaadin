@@ -41,7 +41,7 @@ public class CreateTaskUi extends UI {
 
     private TextField name = new TextField();
     private TextArea description = new TextArea();
-    private Button submit = new Button("Submit");;
+    private Button submit = new Button("Create");
 
     @Override
     protected void init(final VaadinRequest request) {
@@ -50,7 +50,7 @@ public class CreateTaskUi extends UI {
         List<Task> tasks = engine.getTaskService().createTaskQuery().list();
         final String id = tasks.get(0).getId();
         getPage().setTitle("Task manager");
-        CreateTaskClickListener listener = new CreateTaskClickListener(name, id, description, getUI());
+        CreateTaskClickListener listener = new CreateTaskClickListener(name, id, description, "/task_manager/expectedTime", getUI());
         submit.addClickListener(listener);
         HorizontalLayout nameLayout = helper.getHorizontalLayout("Task name:", name);
         HorizontalLayout descriptionLayout = helper.getHorizontalLayout("Description:", description);

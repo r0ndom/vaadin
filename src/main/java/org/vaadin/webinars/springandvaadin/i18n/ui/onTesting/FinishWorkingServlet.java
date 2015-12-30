@@ -1,4 +1,4 @@
-package org.vaadin.webinars.springandvaadin.i18n.ui.doneOrReopened;
+package org.vaadin.webinars.springandvaadin.i18n.ui.onTesting;
 
 import com.vaadin.server.*;
 import com.vaadin.ui.UI;
@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 /**
  * Created by Mednikov on 28.12.2015.
  */
-@WebServlet(urlPatterns = "/doneOrReopened/*")
-public class ChangeDoneStatusServlet extends VaadinServlet {
+@WebServlet(urlPatterns = "/onTesting/*")
+public class FinishWorkingServlet extends VaadinServlet {
 
 
     @Override
@@ -24,7 +24,7 @@ public class ChangeDoneStatusServlet extends VaadinServlet {
                 sessionInitEvent.getSession().addUIProvider(new UIProvider() {
                     @Override
                     public Class<? extends UI> getUIClass(UIClassSelectionEvent uiClassSelectionEvent) {
-                        return ChangeDoneStatusUi.class;
+                        return FinishWorkingUi.class;
                     }
 
                     @Override

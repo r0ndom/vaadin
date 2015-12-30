@@ -1,4 +1,4 @@
-package org.vaadin.webinars.springandvaadin.i18n.ui.onTesting;
+package org.vaadin.webinars.springandvaadin.i18n.ui.doneOrReopened;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @org.springframework.stereotype.Component
 @Scope("prototype")
-public class ChangeTestingStatusUi extends UI {
+public class TestersDecisionUi extends UI {
 
     @Autowired
     ProcessEngine engine;
@@ -25,8 +25,10 @@ public class ChangeTestingStatusUi extends UI {
     private TextField name = new TextField();
     private TextArea description = new TextArea();
     private TextField expectedTime = new TextField();
-    private TextField status  = new TextField();
-    private Button submit = new Button("Submit");
+    private TextField reopenedStatus  = new TextField();
+    private TextField doneStatus  = new TextField();
+    private Button doneButton = new Button("Done");
+    private Button reopenedButton = new Button("Reopened");
 
 
     @Override
@@ -40,14 +42,17 @@ public class ChangeTestingStatusUi extends UI {
         helper.setValueAndDisable(name,String.valueOf(vars.get("name")));
         helper.setValueAndDisable(description,String.valueOf(vars.get("description")));
         helper.setValueAndDisable(expectedTime,String.valueOf(vars.get("expectedTime")));
-        helper.setValueAndDisable(status,"testing");
-        ChangeStatusClickListener listener = new ChangeStatusClickListener(name, id, description, expectedTime, status, "/doneOrReopened", getUI());
-        submit.addClickListener(listener);
+        doneStatus.setValue("done");
+        ChangeStatusClickListener doneButtonListener  = new ChangeStatusClickListener(name, id, description, expectedTime, doneStatus, "/task_manager/result", getUI());
+        doneButton.addClickListener(doneButtonListener);
+        reopenedStatus.setValue("reopened");
+        ChangeStatusClickListener reopenedButtonListener = new ChangeStatusClickListener(name, id, description, expectedTime, reopenedStatus, "/task_manager/expectedTime", getUI());
+        reopenedButton.addClickListener(reopenedButtonListener);
         HorizontalLayout nameLayout = helper.getHorizontalLayout("Task name:", name);
         HorizontalLayout descriptionLayout = helper.getHorizontalLayout("Description:", description);
         HorizontalLayout expectedTimeLayout = helper.getHorizontalLayout("Expected time:", expectedTime);
-        HorizontalLayout statusLayout = helper.getHorizontalLayout("Status:", status);
-        List<? extends AbstractComponent> components = Arrays.asList(nameLayout, descriptionLayout, expectedTimeLayout, statusLayout, submit);
+        List<? extends AbstractComponent> components = Arrays.asList(nameLayout, descriptionLayout, expectedTimeLayout, doneButton, reopenedButton);
+
         setContent(helper.getMainLayout(components));
     }
 }

@@ -1,4 +1,4 @@
-package org.vaadin.webinars.springandvaadin.i18n.ui.inProgress;
+package org.vaadin.webinars.springandvaadin.i18n.ui.onTesting;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
@@ -10,13 +10,12 @@ import org.vaadin.webinars.springandvaadin.i18n.ui.util.UIHelper;
 import org.vaadin.webinars.springandvaadin.i18n.ui.util.listeners.ChangeStatusClickListener;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @org.springframework.stereotype.Component
 @Scope("prototype")
-public class ChangeStatusUi extends UI {
+public class FinishWorkingUi extends UI {
 
     @Autowired
     ProcessEngine engine;
@@ -27,7 +26,7 @@ public class ChangeStatusUi extends UI {
     private TextArea description = new TextArea();
     private TextField expectedTime = new TextField();
     private TextField status  = new TextField();
-    private Button submit = new Button("Submit");
+    private Button submit = new Button("On testing");
 
 
     @Override
@@ -41,8 +40,8 @@ public class ChangeStatusUi extends UI {
         helper.setValueAndDisable(name,String.valueOf(vars.get("name")));
         helper.setValueAndDisable(description,String.valueOf(vars.get("description")));
         helper.setValueAndDisable(expectedTime,String.valueOf(vars.get("expectedTime")));
-        helper.setValueAndDisable(status,"development");
-        ChangeStatusClickListener listener = new ChangeStatusClickListener(name, id, description, expectedTime, status, "/onTesting", getUI());
+        helper.setValueAndDisable(status,"testing");
+        ChangeStatusClickListener listener = new ChangeStatusClickListener(name, id, description, expectedTime, status, "/task_manager/doneOrReopened", getUI());
         submit.addClickListener(listener);
         HorizontalLayout nameLayout = helper.getHorizontalLayout("Task name:", name);
         HorizontalLayout descriptionLayout = helper.getHorizontalLayout("Description:", description);

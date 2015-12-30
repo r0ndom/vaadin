@@ -1,4 +1,4 @@
-package org.vaadin.webinars.springandvaadin.i18n.ui.inProgress;
+package org.vaadin.webinars.springandvaadin.i18n.ui.expectedTime;
 
 import com.vaadin.server.*;
 import com.vaadin.ui.UI;
@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebServlet;
 /**
  * Created by Mednikov on 28.12.2015.
  */
-@WebServlet(urlPatterns = "/changeStatus/*")
-public class ChangeStatusServlet extends VaadinServlet {
+@WebServlet(urlPatterns = "/expectedTime/*")
+public class SetExpectedTimeServlet extends VaadinServlet {
 
 
     @Override
@@ -24,7 +24,7 @@ public class ChangeStatusServlet extends VaadinServlet {
                 sessionInitEvent.getSession().addUIProvider(new UIProvider() {
                     @Override
                     public Class<? extends UI> getUIClass(UIClassSelectionEvent uiClassSelectionEvent) {
-                        return ChangeStatusUi.class;
+                        return SetExpectedTimeUi.class;
                     }
 
                     @Override

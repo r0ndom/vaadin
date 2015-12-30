@@ -36,7 +36,7 @@ public class ChangeStatusClickListener extends AbstractButtonClickListener {
 
     @Override
     public void redirect() {
-        ui.getPage().setLocation(location);;
+        ui.getPage().setLocation(location);
     }
 
     @Override
