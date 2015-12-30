@@ -1,34 +1,33 @@
-package org.vaadin.webinars.springandvaadin.i18n.ui.expectedTime;
+package org.vaadin.webinars.springandvaadin.i18n.ui.doneOrReopened;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.vaadin.webinars.springandvaadin.i18n.ui.util.UIHelper;
-import org.vaadin.webinars.springandvaadin.i18n.ui.util.listeners.ChangeTimeClickListener;
+import org.vaadin.webinars.springandvaadin.i18n.ui.util.listeners.ChangeStatusClickListener;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @org.springframework.stereotype.Component
 @Scope("prototype")
-public class ChangeTimeUi extends UI {
+public class ChangeDoneStatusUi extends UI {
 
     @Autowired
     ProcessEngine engine;
     @Autowired
     UIHelper helper;
 
-    private TextField name = new TextField();;
-    private TextArea description = new TextArea();;
-    private TextField expectedTime = new TextField();;
-    private Button submit = new Button("Submit");;
+    private TextField name = new TextField();
+    private TextArea description = new TextArea();
+    private TextField expectedTime = new TextField();
+    private TextField status  = new TextField();
+    private Button submit = new Button("Done");
+
 
     @Override
     protected void init(VaadinRequest request) {
@@ -40,13 +39,14 @@ public class ChangeTimeUi extends UI {
         getPage().setTitle("Task manager");
         helper.setValueAndDisable(name,String.valueOf(vars.get("name")));
         helper.setValueAndDisable(description,String.valueOf(vars.get("description")));
-        ChangeTimeClickListener listener = new ChangeTimeClickListener(name, id, description, expectedTime, getUI());
+        helper.setValueAndDisable(expectedTime,String.valueOf(vars.get("expectedTime")));
+        ChangeStatusClickListener listener = new ChangeStatusClickListener(name, id, description, expectedTime, status, "/result", getUI());
         submit.addClickListener(listener);
         HorizontalLayout nameLayout = helper.getHorizontalLayout("Task name:", name);
         HorizontalLayout descriptionLayout = helper.getHorizontalLayout("Description:", description);
         HorizontalLayout expectedTimeLayout = helper.getHorizontalLayout("Expected time:", expectedTime);
-        List<? extends AbstractComponent> components = Arrays.asList(nameLayout, descriptionLayout, expectedTimeLayout, submit);
+        HorizontalLayout statusLayout = helper.getHorizontalLayout("Status:", status);
+        List<? extends AbstractComponent> components = Arrays.asList(nameLayout, descriptionLayout, expectedTimeLayout, statusLayout, submit);
         setContent(helper.getMainLayout(components));
     }
-
 }

@@ -18,15 +18,14 @@ package org.vaadin.webinars.springandvaadin.i18n.ui.createTask;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import org.activiti.engine.*;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
+import org.vaadin.webinars.springandvaadin.i18n.ui.util.listeners.CreateTaskClickListener;
+import org.vaadin.webinars.springandvaadin.i18n.ui.util.UIHelper;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author petter@vaadin.com
@@ -37,52 +36,26 @@ public class CreateTaskUi extends UI {
 
     @Autowired
     ProcessEngine engine;
+    @Autowired
+    UIHelper helper;
 
-
-    private TextField name;
-    private TextField description;
-    private Button submit;
-
+    private TextField name = new TextField();
+    private TextArea description = new TextArea();
+    private Button submit = new Button("Submit");;
 
     @Override
     protected void init(final VaadinRequest request) {
-        ProcessInstance instance = engine.getRuntimeService().startProcessInstanceByKey("process");
+        engine.getRuntimeService().startProcessInstanceByKey("process");
         setLocale(request.getLocale());
         List<Task> tasks = engine.getTaskService().createTaskQuery().list();
         final String id = tasks.get(0).getId();
         getPage().setTitle("Task manager");
-
-        VerticalLayout layout = new VerticalLayout();
-        HorizontalLayout nameLayout = new HorizontalLayout();
-        HorizontalLayout descriptionLayout = new HorizontalLayout();
-        layout.setMargin(true);
-        layout.setSpacing(true);
-        setContent(layout);
-
-        name = new TextField();
-        description = new TextField();
-        submit = new Button("Submit");
-        submit.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                engine.getFormService().submitTaskFormData(id, getInputMap());
-                getUI().getPage().setLocation("/task_manager/expectedTime");
-            }
-        });
-        nameLayout.addComponent(new Label("Task name:"));
-        nameLayout.addComponent(name);
-        descriptionLayout.addComponent(new Label("Description:"));
-        descriptionLayout.addComponent(description);
-        layout.addComponent(nameLayout);
-        layout.addComponent(descriptionLayout);
-        layout.addComponent(submit);
-
+        CreateTaskClickListener listener = new CreateTaskClickListener(name, id, description, getUI());
+        submit.addClickListener(listener);
+        HorizontalLayout nameLayout = helper.getHorizontalLayout("Task name:", name);
+        HorizontalLayout descriptionLayout = helper.getHorizontalLayout("Description:", description);
+        List<? extends AbstractComponent> components = Arrays.asList(nameLayout, descriptionLayout, submit);
+        setContent(helper.getMainLayout(components));
     }
 
-    private Map<String, String> getInputMap() {
-        Map<String, String> map = new HashMap<>();
-        map.put("name", name.getValue());
-        map.put("description", description.getValue());
-        return map;
-    }
 }
